@@ -5,7 +5,7 @@ from pytube import YouTube
 
 dir = os.getcwd() + "\\YT-Scraper\\database"
 
-link = "https://youtu.be/66M8olZKFlw"
+link = ""
 yt = YouTube(link)
 
 print("Title: ", yt.title)
