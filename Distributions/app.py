@@ -85,7 +85,6 @@ def show_ecdf(distribution):
   
   return plt.show
 
-
 distribution, show = show_normal()
 show()
 show = show_ecdf(distribution)
