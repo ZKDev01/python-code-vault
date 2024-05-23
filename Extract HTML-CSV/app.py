@@ -5,7 +5,7 @@ import requests
 import csv
 from bs4 import BeautifulSoup
 
-url = 'https://cphof.org/standings/icpc/2019'
+url = 'https://es.wikipedia.org/wiki/Campeonato_Mundial_de_Lucha_de_2023'
 
 def extract_tables_from_html(url: str):
   response = requests.get(url)
@@ -40,5 +40,7 @@ def convert_csv_from_html(dir: str):
               if columns:
                 writer.writerow([c.text.split() for c in columns])
 
-dir = os.getcwd()
-convert_csv_from_html(dir)
+if __name__ == "__main__":
+  extract_tables_from_html(url)
+  dir = os.getcwd()
+  convert_csv_from_html(dir)
