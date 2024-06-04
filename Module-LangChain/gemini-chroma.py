@@ -4,7 +4,8 @@ import os
 from langchain_google_genai import GoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import TextLoader
-from langchain_community.vectorstores.faiss import FAISS
+
+from langchain_community.vectorstores import Chroma 
 
 dotenv.load_dotenv()
 
@@ -29,13 +30,19 @@ def load_doc(dir: str):
   return docs
 
 def main():
+  # TODO: PROBLEMA CON Chroma.from_documents
   current = os.getcwd()
   dir = '\\Module-LangChain\\database\\testing.txt'
   docs = load_doc(current + dir)
-  db = FAISS.from_documents(documents=docs, embedding=embedding)
+
+  vectorstore = Chroma.from_documents(
+    documents=docs, 
+    embedding=embedding, 
+    persist_directory='database')
+
   query = "Cual es el perro de Persona 1?"
-  results = db.similarity_search(query)
-  print(results)
+  similary_score = vectorstore.similarity_search_with_score(query)
+  print(similary_score)
 
 if __name__ == '__main__':
   main()
