@@ -14,7 +14,7 @@ dotenv.load_dotenv()
 google_api_key = os.getenv("geminiapi_key")
 
 model = GoogleGenerativeAI(
-  model='gemini-pro',
+  model='models/gemini-1.5-pro',
   google_api_key=google_api_key)
 embedding = GoogleGenerativeAIEmbeddings(
   model='models/embedding-001',
@@ -39,8 +39,10 @@ def embedding_doc(docs: List[Document]):
 
 if __name__ == "__main__":
   current = os.getcwd()
-  dir = '\\Module-LangChain\\database\\Martin George R R - Cancion De Hielo Y Fuego 01 - Juego de Tronos.pdf'
+  dir = '\\Module-LangChain\\database\\results_02_acapulco.pdf'
   first = load_doc(current + dir)
+  for doc in first:
+    print(doc.page_content)
 
 
 

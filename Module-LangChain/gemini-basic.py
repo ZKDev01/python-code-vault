@@ -73,12 +73,9 @@ def parser_simple_json():
   })
   print(result)
 
-if __name__ == "__main__":
-  basic_invoke()
-  
-  prompt_template_basic()
-  prompt_template_messages_in_system()
+def prompt_template_basic_sport(url = 'https://uww.org/events'):
+  result = model.invoke(f"Que eventos ocurrieron en este url en el año 2020 {url}")
+  print(result)
 
-  parser_simple_string()
-  parser_simple_list()
-  parser_simple_json()
+if __name__ == "__main__":
+  prompt_template_basic_sport()
