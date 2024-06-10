@@ -2,9 +2,6 @@ import dotenv
 import os
 
 from langchain_google_genai import GoogleGenerativeAI, GoogleGenerativeAIEmbeddings
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.document_loaders import TextLoader
-from langchain_community.vectorstores.faiss import FAISS
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
