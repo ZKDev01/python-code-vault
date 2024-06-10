@@ -34,8 +34,10 @@ def main():
   docs = load_doc(current + dir)
   db = FAISS.from_documents(documents=docs, embedding=embedding)
   query = "Cual es el perro de Persona 1?"
-  results = db.similarity_search(query)
-  print(results)
+  results = db.similarity_search(query, k=1)
+  for result in results:
+    print(f"PAGE CONTENT: {result.page_content}")
+    print(f"METADATOS: {result.metadata}")
 
 if __name__ == '__main__':
   main()
