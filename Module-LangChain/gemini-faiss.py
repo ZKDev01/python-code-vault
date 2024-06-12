@@ -29,7 +29,7 @@ def load_doc(dir: str):
   return docs
 
 def main():
-  current = os.getcwd()
+  current = os.getcwd() 
   dir = '\\Module-LangChain\\database\\testing.txt'
   docs = load_doc(current + dir)
   db = FAISS.from_documents(documents=docs, embedding=embedding)
