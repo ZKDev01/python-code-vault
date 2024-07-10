@@ -25,8 +25,15 @@ def simple_chat():
     [(
         "system",
         """
-        Eres un AI, respondes preguntas con respuestas simples,
+        Eres un AI, respondes preguntas solo sobre problemas de optimizacion,
         ademas debes preguntar al usuario acorde al contexto
+
+        los problemas de optimizacion son:
+        {optimizacion}
+
+        algunos ejemplos son:
+        {problem_1}
+        {problem_2}
         """
       ),
       MessagesPlaceholder(variable_name='chat_history'),

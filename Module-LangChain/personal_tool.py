@@ -7,6 +7,8 @@ from langchain_core.output_parsers import StrOutputParser, CommaSeparatedListOut
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel, Field
 
+import google.generativeai as genai
+
 def load_environment():
   """
   Carga las variables de entorno necesarias para el funcionamiento del programa
@@ -183,3 +185,25 @@ def prompt_template_parser_list_simility(word: str, k: int, model: GoogleGenerat
   })
   
   return result
+
+test = """
+
+Una empresa se dedica a producir dos tipos de folletos: blancos, negros, y para ello se utilizan 3 tipos de recursos: papel, color negro, color blanco, sello de tipo 1, sello de tipo 2  
+
+| Recursos        | Folleto blanco | Folleto negro | Cantidad en la empresa para la produccion |
+| --------------- | -------------- | ------------- | ----------------------------------------- |
+| Papel           | 1              | 2             | 100                                       |
+| Color negro     | 4              | 3             | 200                                       |
+| Color blanco    | 3              | 5             | 200                                       |
+| Sello de tipo 1 | 7              | 5             | 250                                       |
+| Sello de tipo 2 | 4              | 8             | 250                                       |
+| Precio de venta | 15             | 20            |                                           |
+
+Se desea conocer la cantidad a fabricar de cada tipo de folleto de manera que el beneficio sea máximo
+
+"""
+
+if __name__ == '__main__':
+  model = get_model()
+  answer = prompt_template_QA(test, 1, model=model)
+  print(answer)
