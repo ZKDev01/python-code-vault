@@ -16,7 +16,7 @@ embedding = GoogleGenerativeAIEmbeddings(
 )
 
 def simple_message_with_HumanMessage():
-  model.invoke([HumanMessage(content="Hi! I'm a student")])
+  model.invoke( [HumanMessage(content="Hi! I'm a student")] )
   # AIMessage(content = "Hello! How can I assist you today?")
 
 def simple_chat():
@@ -25,15 +25,7 @@ def simple_chat():
     [(
         "system",
         """
-        Eres un AI, respondes preguntas solo sobre problemas de optimizacion,
-        ademas debes preguntar al usuario acorde al contexto
-
-        los problemas de optimizacion son:
-        {optimizacion}
-
-        algunos ejemplos son:
-        {problem_1}
-        {problem_2}
+        Eres una inteligencia artificial capaz de responder preguntas complejas con respuestas sencillas
         """
       ),
       MessagesPlaceholder(variable_name='chat_history'),
