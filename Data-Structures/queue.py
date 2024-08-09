@@ -1,5 +1,7 @@
 from collections import deque
 
+# Queues follow the First In First Out (FIFO) principle
+
 def make_queue( items: list[int] ) -> None:
   queue = deque(items)
 
