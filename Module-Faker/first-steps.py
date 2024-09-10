@@ -3,7 +3,18 @@ import streamlit as st
 from faker import Faker
 from faker.providers import DynamicProvider
 
-WORD_LIST = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', '...', 'x', 'y', 'z' ]
+WORD_LIST = [
+  'action',
+  'comedy',
+  'drama',
+  'horror',
+  'fantasy',
+  'jazz',
+  'rock',
+  'pop',
+  'classical',
+  'hip-hop'
+]
 
 
 
@@ -16,13 +27,13 @@ def generator_name_list ( n: int, localization: str = 'en_US' ) -> list[ str ]:
   return l
 
 
-def generator_tokens_unique_list ( n: int, word_list: list[ str ] ) -> list[ str ]:
+def generator_tokens_unique_list ( word_list: set[ str ], n: int = -1 ) -> set [ str ]:
   fake = Faker ( )
-  tokens = [ ]
-  for _ in range ( 0, n ):
-    tmp = [ word for word in word_list if word is not tokens ]
-    s = fake.sentence ( nb_words=1, ext_word_list=tmp )
-    tokens.append ( s[0:len(s)-1] )
+
+  if n == -1:
+    n = fake.random_int ( min=0, max=len(word_list)-1 )
+
+  tokens = fake.random_elements ( elements=word_list, length=n, unique=True )
   return tokens
 
 
@@ -84,24 +95,11 @@ def deploy ( ) -> None:
   n = st.slider ( 'Select a range of values', 0, 10, 0 )
   
   if n:
-    names = generator_name_list ( n=n )
-    tokens = generator_tokens_unique_list ( n=n, word_list=WORD_LIST )
-    paragraphs = random_words ( n=n, localization='es_ES' )
-    word_lists = random_word_lists ( n=n, lenght=5 )
+    tokens = generator_tokens_unique_list ( word_list=WORD_LIST )
 
-    for i, name in enumerate( names ):
-      st.write ( f"{ i+1 }. Name: { name }" )
+    
+    st.write ( tokens ) 
 
-    for i, tk in enumerate( tokens ):
-      st.write ( f"Token { i+1 } => { tk }" )
-
-    st.write ( 'PARAGRAPH' )
-    for p in paragraphs: 
-      st.write ( p )
-
-    st.write ( 'WORD LISTS' )
-    for l in word_lists:
-      st.write ( l )
 
 
 
