@@ -1,16 +1,23 @@
-import random
+import string as s 
+import random as r 
+import streamlit as st 
 
-lower = "qwertyuiopasdfghjklzxcvbnm"
-upper = "QWERTYUIOPASDFGHJKLZXCVBNM"
-numbers = "0123456789"
-symbols = "[]{}()*;/,._-"
+st.title ("Password Generator")
 
-characters = lower + upper + numbers + symbols
+
+
+total = s.ascii_lowercase + s.ascii_uppercase + s.digits + s.punctuation 
+
 
 def main() -> None:
-  length = 16
-  password = "".join(random.sample(characters, length))
-  print(password)
+  length = st.number_input ( 
+    label='Select password length',
+    min_value=4,
+    max_value=50
+  )
+  password = "".join( r.sample(total,length) )
+  st.write (password)
+
 
 if __name__ == "__main__":
   main()

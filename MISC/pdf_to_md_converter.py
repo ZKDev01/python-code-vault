@@ -35,8 +35,8 @@ def convert_pdf_to_md(pdf_path, md_path):
 dir = os.getcwd() 
 
 # Examples
-dir_pdf = 'database/publicacion_24.pdf'
-dir_txt = 'database/publicacion_24.txt'
-dir_md  = 'database/publicacion_24.md' 
+dir_pdf = 'database/publicacion.pdf'
+dir_txt = 'database/publicacion.txt'
+dir_md  = 'database/publicacion.md' 
 
 convert_pdf_to_txt(dir_pdf, dir_md)

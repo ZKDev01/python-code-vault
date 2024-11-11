@@ -1,4 +1,0 @@
-Selenium
-Automatization with LLM
-HTML to CSV using Beautiful Soup
-
