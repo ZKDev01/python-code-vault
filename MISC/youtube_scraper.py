@@ -1,26 +1,25 @@
 import os
 import time 
 import http.client
+import streamlit as st 
+
 from pytube import YouTube
 
-dir = os.getcwd() + "\\YT-Scraper\\database"
+DIR = os.getcwd() + '\\videos'
 
-link = ""
-yt = YouTube(link)
+def main ( ) -> None:
+  st.write ('Streamlit Downloader')
+  
+  link = st.text_input("Introduce el enlace a descargar")
+  btn = st.button("OK")
+  if btn and link != "":
+    yt = YouTube(link)
+    st.write (f"Title: {yt.title}")
+    st.write (f"View: {yt.views}")
+    st.write (f"Description {yt.description}")
 
-print("Title: ", yt.title)
-print("View: ", yt.views)
-
-yt_highest = yt.streams.get_highest_resolution()
-yt_lowest = yt.streams.get_lowest_resolution()
-
-for attempt in range(3):
-  print("Iniciando Descarga")
-  try: 
-    yt_lowest.download(dir)
-    print("Descarga exitosa")
-    break
-  except http.client.IncompleteRead as e:
-    print("Error en la descarga (intento {}):".format(attempt + 1))
-    time.sleep(3)
-
+    #streams = yt.streams.get_highest_resolution()
+  
+  
+if __name__ == '__main__':
+  main ( )
