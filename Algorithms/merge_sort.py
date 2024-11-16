@@ -1,5 +1,5 @@
 
-# recursive algorithm
+# merge-sort es un algortimo recursivo basico
 
 def merge_sort (l: list[int]) -> list[int]:
   if len(l) == 1:

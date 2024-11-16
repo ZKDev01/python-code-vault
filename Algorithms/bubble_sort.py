@@ -1,7 +1,6 @@
+from typing import List
 
-# O(n^2)
-
-def bubble_sort (items: list[int]) -> list[int]:
+def bubble_sort (items: List[int]) -> List[int]:
   n = len( items )
 
   for _ in range ( 1, n ):
@@ -14,10 +13,11 @@ def bubble_sort (items: list[int]) -> list[int]:
   return items
 
 def main() -> None:
-  array1 = [ 20,19,18,17,16,15,14,13,12,11 ]
-  print( f"Original:  {array1}" )
-  bubble_sort( array1 )
-  print( f"Results:   {array1}" )
+
+  array = [ 20,19,18,17,16,15,14,13,12,11 ]
+  print( f"Original:  {array}" )
+  bubble_sort( array )
+  print( f"Results:   {array}" )
 
 if __name__ == '__main__':
   main()
