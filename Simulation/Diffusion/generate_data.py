@@ -1,14 +1,14 @@
-import streamlit as st
+import os 
+import numpy as np 
+import matplotlib.pyplot as plt
 
 from faker import Faker
-from faker.providers import DynamicProvider
+from typing import List,Set,Any
 
-WORD_LIST = [
-  'action',
-  'comedy',
-  'drama',
-  'horror',
-  'fantasy',
+
+
+
+BOW_MUSIC = [
   'jazz',
   'rock',
   'pop',
@@ -18,27 +18,58 @@ WORD_LIST = [
 
 
 
-def generator_name_list ( n: int, localization: str = 'en_US' ) -> list[ str ]:
-  # possible locales: [ en_US, it_IT, ja_JP, es_ES, ... ]
-  fake = Faker ( locale=localization )
-  l = [ ]
-  for _ in range ( 0, n ):
-    l.append ( fake.name ( ) )
-  return l
+class DataGenerator:
+  def __init__(self, bow:List[str], localization:str = 'en_US'):
+    self.bow:List[str] = bow
+    self.fake:List[str] = Faker()
+
+  def generate_name (self, n:int) -> List[str]:
+    return [ self.fake.name() for _ in range(n) ]
+
+  def generate_tokens (self, n:int) -> Set[str]:
+    try:
+      return self.fake.random_elements(elements=self.bow, length=n, unique=True)
+    except ValueError as e:
+      print (e)
+      return None
+
+  def generate_data (self, n:int, f_name:str='N', **kwargs) -> Any:
+    # distribucion normal 
+    if f_name == 'N':
+      return np.random.normal(0, 1, n)
+    # distribucion uniforme
+    if f_name == 'U':
+      try:
+        return np.random.uniform(kwargs['a'], kwargs['b'], n)
+      except Exception as e:
+        print (e)
+        return None
+    
+    
+
+    return 
 
 
-def generator_tokens_unique_list ( word_list: set[ str ], n: int = -1 ) -> set [ str ]:
-  fake = Faker ( )
 
-  if n == -1:
-    n = fake.random_int ( min=0, max=len(word_list)-1 )
-
-  tokens = fake.random_elements ( elements=word_list, length=n, unique=True )
-  return tokens
-
+def to_visualizate ( data: np.array ) -> None:
+  plt.hist(data, bins=30,density=True)
+  plt.title('Histograma de datos')
+  plt.xlabel('Valor')
+  plt.ylabel('Frecuencia')
+  plt.savefig(os.getcwd() + '/Data/Img/hist.png')
 
 
 
+if __name__ == '__main__':
+  dg = DataGenerator(bow=BOW_MUSIC)
+  print(dg.generate_name(10))
+  print(dg.generate_tokens(10))
+  
+  data = dg.generate_data(10)
+  print (type(data))
+  to_visualizate(data)
+
+""" 
 
 def random_choices ( n: int, tokens: list[ str ], length: int ) -> list[ str ]:
   fake = Faker ( )
@@ -91,18 +122,6 @@ def random_word_lists ( n: int, lenght: int ) -> list [ list [ str ] ] :
   return l
 
 
-def deploy ( ) -> None:
-  n = st.slider ( 'Select a range of values', 0, 10, 0 )
-  
-  if n:
-    tokens = generator_tokens_unique_list ( word_list=WORD_LIST )
-
-    
-    st.write ( tokens ) 
+"""
 
 
-
-
-
-if __name__ == '__main__':
-  deploy ( )
